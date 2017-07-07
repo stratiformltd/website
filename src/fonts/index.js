@@ -23,8 +23,6 @@ import SabonNextBoldWoff from './952c2825-2ba9-448a-8375-492e78886fc9.woff'
 import SabonNextDisplayWoff from './0ec59a8b-e91f-45d4-928d-f864aa5a36c5.woff'
 
 injectGlobal`
-  @import url("https://fast.fonts.net/t/1.css?apiType=css&projectid=d1e3d6a5-ff9d-47e0-8779-314aab7429d8");
-
   @font-face {
     font-family: "Avenir Next";
     src: url(${AvenirNextRegular}) format("woff2"), url(${AvenirNextRegularWoff}) format("woff");
@@ -73,3 +71,18 @@ injectGlobal`
     font-weight: 400;
   }
 `
+
+// Don't block the critical rendering path on this
+if (!__DEV__ && !__SERVER__) {
+  setTimeout(() => {
+    const fontsSheet = document.createElement('link')
+
+    fontsSheet.setAttribute('rel', 'stylesheet')
+    fontsSheet.setAttribute(
+      'href',
+      'https://fast.fonts.net/t/1.css?apiType=css&projectid=d1e3d6a5-ff9d-47e0-8779-314aab7429d8'
+    )
+
+    document.body.appendChild(fontsSheet)
+  }, 100)
+}

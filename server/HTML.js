@@ -28,9 +28,21 @@ export default class HTMLComponent extends Component {
             content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
           />
 
-          <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js" />
-          <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js" />
-          <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/4.1.1/react-router-dom.min.js" />
+          <link
+            rel="preload"
+            as="script"
+            href="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"
+          />
+          <link
+            rel="preload"
+            as="script"
+            href="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js"
+          />
+          <link
+            rel="preload"
+            as="script"
+            href="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/4.1.1/react-router-dom.min.js"
+          />
           <link rel="preload" as="script" href={this.props.appBundle} />
 
           <link
