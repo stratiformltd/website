@@ -1,23 +1,47 @@
 // @flow
 
 import React, { Component } from 'react'
+import { transform } from 'babel-core'
+
+const JS_LIBS = [
+  'https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/4.1.1/react-router-dom.min.js',
+]
 
 export default class HTMLComponent extends Component {
   render() {
-    const loadingScript = `
-      var script = document.createElement('script');
+    // Defer all JS loading as the page is statically rendered and these JS assets are preloaded
+    const loadingScript = transform(
+      `
+      setTimeout(function() {
+        var script = document.createElement('script');
 
-      if (window.CSS && window.CSS.supports && window.CSS.supports('display', 'flex')) {
-        script.setAttribute('src', '/${this.props.appBundle}')
-      } else {
-        script.setAttribute('src', '/${this.props.unsupportedBundle}')
+        ${JS_LIBS.map(lib => {
+          return `
+            script.setAttribute('src', ${JSON.stringify(lib)});
+            document.body.appendChild(script);
+            script = document.createElement('script');
+          `
+        }).join('\n')}
+
+        if (window.CSS && window.CSS.supports && window.CSS.supports('display', 'flex')) {
+          script.setAttribute('src', '/${this.props.appBundle}')
+        } else {
+          script.setAttribute('src', '/${this.props.unsupportedBundle}')
+        }
+
+        document.body.appendChild(script);
+
+        window['GoogleAnalyticsObject'] = 'ga';
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      }, 0)
+    `,
+      {
+        babelrc: false,
+        presets: ['babili'],
       }
-
-      document.body.appendChild(script);
-
-      window['GoogleAnalyticsObject'] = 'ga';
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-    `
+    ).code
 
     return (
       <html lang="en">
@@ -28,21 +52,10 @@ export default class HTMLComponent extends Component {
             content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
           />
 
-          <link
-            rel="preload"
-            as="script"
-            href="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"
-          />
-          <link
-            rel="preload"
-            as="script"
-            href="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js"
-          />
-          <link
-            rel="preload"
-            as="script"
-            href="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/4.1.1/react-router-dom.min.js"
-          />
+          {JS_LIBS.map(lib => {
+            return <link key={lib} rel="preload" as="script" href={lib} />
+          })}
+
           <link rel="preload" as="script" href={this.props.appBundle} />
 
           <link
