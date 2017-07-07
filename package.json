@@ -1,0 +1,89 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "Website hosted on Stratiform.io",
+  "main": "index.js",
+  "repository": "https://github.com/stratiformltd/website.git",
+  "author": "Tasveer Singh <taz@stratiform.io>",
+  "license": "BSD-4-Clause",
+  "scripts": {
+    "build": "yarn run build-server && yarn run build-pages",
+    "build-pages": "NODE_ENV=production node server/dist/app.js",
+    "build-server": "NODE_ENV=production webpack --progress --config ./tools/webpack.server.config",
+    "clean": "rm -rf dist && rm -rf server/dist",
+    "copy-static-files": "cp -r ./public/* ./dist",
+    "deploy": "yarn run deploy-others && yarn run deploy-html && yarn run deploy-public",
+    "deploy-html": "aws s3 sync dist/ s3://stratiform-website --exclude '*' --include '*.html' --cache-control public,max-age=86400",
+    "deploy-others": "aws s3 sync dist/ s3://stratiform-website --exclude '*.html' --cache-control public,max-age=604800,immutable",
+    "deploy-public": "aws s3 sync public/ s3://stratiform-website --cache-control public,max-age=604800",
+    "prettier": "prettier",
+    "prod-server": "serve -s -p 8081 ./dist ./public",
+    "start": "webpack-dev-server --config ./tools/webpack.config",
+    "start-unsupported": "webpack-dev-server --config ./tools/webpack.config.unsupported"
+  },
+  "dependencies": {
+    "autotrack": "^2.4.1",
+    "babel-polyfill": "^6.23.0",
+    "polished": "^1.2.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.1",
+    "styled-components": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.0",
+    "babel-plugin-import-inspector": "^2.0.0",
+    "babel-plugin-module-resolver": "^2.7.1",
+    "babel-plugin-styled-components": "^1.1.7",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babili-webpack-plugin": "^0.1.2",
+    "file-loader": "^0.11.2",
+    "import-inspector": "^2.0.0",
+    "prettier": "^1.5.2",
+    "react-loadable": "^4.0.3",
+    "serve": "^6.0.1",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.5.0",
+    "webpack-node-externals": "^1.6.0",
+    "webpack-require-weak": "^1.0.1"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "modules": false,
+          "loose": true,
+          "targets": {
+            "browsers": [
+              "Edge >= 14",
+              "Firefox >= 52",
+              "Chrome >= 57",
+              "Safari >= 9.1",
+              "Opera >= 44",
+              "iOS >= 9.3",
+              "Android >= 4.4"
+            ]
+          },
+          "useBuiltIns": true
+        }
+      ],
+      "react",
+      "stage-2"
+    ],
+    "plugins": [
+      [
+        "styled-components",
+        {
+          "ssr": true
+        }
+      ]
+    ]
+  }
+}
