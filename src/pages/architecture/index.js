@@ -188,8 +188,8 @@ export default class ArchitectureComponent extends Component {
             </Text>
 
             <Text>
-              Open source is dear to us and when we have a chance we try to
-              contribute back.
+              Open source is dear to us and we contribute back when we have an
+              opportunity.
             </Text>
 
             <GithubWrapper

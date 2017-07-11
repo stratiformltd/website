@@ -57,7 +57,7 @@ export default class HTMLComponent extends Component {
             return <link key={lib} rel="preload" as="script" href={lib} />
           })}
 
-          <link rel="preload" as="script" href={this.props.appBundle} />
+          <link rel="preload" as="script" href={`/${this.props.appBundle}`} />
 
           <link
             rel="apple-touch-icon"
