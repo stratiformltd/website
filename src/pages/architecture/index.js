@@ -196,7 +196,8 @@ export default class ArchitectureComponent extends Component {
               href="https://github.com/stratiformltd"
               target="_blank"
             >
-              <GithubImg src={GithubLogo} />
+              {GithubLogo.constructor === String &&
+                <GithubImg src={GithubLogo} />}
               <Text>
                 Check out our Github for our open source contributions
               </Text>

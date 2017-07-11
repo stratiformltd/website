@@ -79,7 +79,7 @@ module.exports = {
   externals: [
     nodeExternals({
       whitelist: [
-        'react-loadable-visibility',
+        'react-loadable-visibility/react-loadable',
         'react-loadable',
         'webpack-require-weak',
         'is-webpack-bundle',
