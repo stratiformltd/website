@@ -7,6 +7,7 @@ const JS_LIBS = [
   'https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/4.1.1/react-router-dom.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/styled-components/2.1.1/styled-components.min.js',
 ]
 
 export default class HTMLComponent extends Component {

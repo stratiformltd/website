@@ -17,6 +17,15 @@ injectGlobal`
     margin: 0;
     font-family: 'Avenir Next', Avenir, Helvetica, Arial, sans-serif;
   }
+
+  a {
+    color: #4394B0;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `
 
 const loading = () => <LoadingPage />

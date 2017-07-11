@@ -2,8 +2,14 @@
 
 import React, { Component } from 'react'
 
+import Page from 'shared/Page'
+
 export default class LoadingPageComponent extends Component {
-  render () {
-    return <div>Loading!</div>
+  render() {
+    return (
+      <Page>
+        <div>Loading!</div>
+      </Page>
+    )
   }
 }

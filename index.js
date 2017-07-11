@@ -8,14 +8,18 @@ import App from './src'
 import ROUTES from './src/routes'
 
 if (!__SERVER__) {
-  if (window && window.location) {
-    const route = ROUTES[window.location.pathname]
+  let path = window.location.pathname
 
-    if (route) {
-      route().then(renderApp, renderApp)
-    } else {
-      renderApp()
-    }
+  if (path !== '/' && path.endsWith('/')) {
+    path = path.replace(/\/$/, '')
+  }
+
+  const route = ROUTES[path]
+
+  if (route) {
+    route().then(renderApp, renderApp)
+  } else {
+    renderApp()
   }
 
   import('./src/tracking')

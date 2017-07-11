@@ -55,13 +55,22 @@ module.exports = {
         ],
       },
       {
-        test: /\.(jpe?g|eot|otf|webp|ttf|woff|woff2)$/,
+        test: /\.(woff|woff2)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: '[hash].[ext]',
+              name: '[path][hash].[ext]',
+              context: path.resolve(__dirname, '../src'),
             },
+          },
+        ],
+      },
+      {
+        test: /\.(png|svg)$/,
+        use: [
+          {
+            loader: 'null-loader',
           },
         ],
       },
@@ -70,6 +79,7 @@ module.exports = {
   externals: [
     nodeExternals({
       whitelist: [
+        'react-loadable-visibility',
         'react-loadable',
         'webpack-require-weak',
         'is-webpack-bundle',

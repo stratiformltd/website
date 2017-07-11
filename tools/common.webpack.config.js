@@ -10,7 +10,7 @@ const path = require('path')
 
 const resolve = require('./resolve')
 
-module.exports = function createConfig ({ bundleName, entry, module }) {
+module.exports = function createConfig({ bundleName, entry, module }) {
   if (!bundleName) {
     throw new Error('`bundleName` needs to be specified.')
   }
@@ -25,6 +25,7 @@ module.exports = function createConfig ({ bundleName, entry, module }) {
     react: 'React',
     'react-dom': 'ReactDOM',
     'react-router-dom': 'ReactRouterDOM',
+    'styled-components': 'styled',
   }
 
   const plugins = [
@@ -66,14 +67,16 @@ module.exports = function createConfig ({ bundleName, entry, module }) {
     output,
     externals,
     module: {
-      rules: [...module.rules,
+      rules: [
+        ...module.rules,
         {
-          test: /\.(jpe?g|eot|otf|webp|ttf|woff|woff2)$/,
+          test: /\.(woff|woff2)$/,
           use: [
             {
               loader: 'file-loader',
               options: {
-                name: '[hash].[ext]',
+                name: '[path][hash].[ext]',
+                context: path.resolve(__dirname, '../src'),
               },
             },
           ],

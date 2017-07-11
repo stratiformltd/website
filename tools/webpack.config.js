@@ -12,7 +12,21 @@ module.exports = commonConfig({
         test: /\.js$/,
         exclude: /(unsupported|node_modules)/,
         use: ['babel-loader'],
-      }
-    ]
-  }
+      },
+      {
+        test: /\.(png)$/,
+        use: ['url-loader'],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          'url-loader',
+          {
+            loader: 'svgo-loader',
+            options: {}
+          }
+        ],
+      },
+    ],
+  },
 })

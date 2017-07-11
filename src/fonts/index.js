@@ -14,13 +14,13 @@ import AvenirNextBoldWoff from './b8e906a1-f5e8-4bf1-8e80-82c646ca4d5f.woff'
 
 import SabonNextRegular from './d913b226-c0d7-49e2-b231-1fc570fcdc9a.woff2'
 import SabonNextDemi from './a9068ef6-cebc-4c2e-a52f-0b1d29cc2328.woff2'
+import SabonNextDemiItalic from './76e94838-4d7f-4ceb-a6f6-ca122d0270c1.woff2'
 import SabonNextBold from './533ce8a9-a0a4-4a40-96c5-76aa564a3d7f.woff2'
-import SabonNextDisplay from './d23cb1de-d130-4bab-be0e-d2f37552b686.woff2'
 
 import SabonNextRegularWoff from './9bbfbdbd-1ab0-4d8f-80d8-c690ab217070.woff'
 import SabonNextDemiWoff from './14120fb6-0d68-4785-b95e-0f47d1945981.woff'
+import SabonNextDemiItalicWoff from './fcf1cd8c-4387-4016-809b-f4c2257054a6.woff'
 import SabonNextBoldWoff from './952c2825-2ba9-448a-8375-492e78886fc9.woff'
-import SabonNextDisplayWoff from './0ec59a8b-e91f-45d4-928d-f864aa5a36c5.woff'
 
 injectGlobal`
   @font-face {
@@ -66,9 +66,10 @@ injectGlobal`
   }
 
   @font-face {
-    font-family: "Sabon Next Display";
-    src: url(${SabonNextDisplay}) format("woff2"), url(${SabonNextDisplayWoff}) format("woff");
-    font-weight: 400;
+    font-family: "Sabon Next";
+    src: url(${SabonNextDemiItalic}) format("woff2"), url(${SabonNextDemiItalicWoff}) format("woff");
+    font-weight: 600;
+    font-style: italic;
   }
 `
 
